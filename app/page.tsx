@@ -208,7 +208,7 @@ export default function QualityControlForm() {
       }
       const data = await response.json();
       console.log('Search results:', data);
-      setSearchResults(data.results as SearchResult[]);
+      setSearchResults(data.results);
       if (data.results.length === 0) {
         setSearchError('No results found');
       }
@@ -256,10 +256,11 @@ export default function QualityControlForm() {
             className="flex-grow"
           />
           <Button
-            type="submit"
+            onClick={handleSearch}
+            disabled={isSearching}
             className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Search
+            {isSearching ? 'Searching...' : 'Search'}
           </Button>
         </div>
         {searchError && <p className="mt-2 text-sm text-red-600">{searchError}</p>}
